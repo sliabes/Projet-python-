@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Données : jamais dans Git (stockées sur S3 SSP Cloud)
+data/
+*.parquet
+*.zip
+*.xml
+
+# Secrets
+.env
+
+# Divers
+.ipynb_checkpoints/
+.DS_Store
+.vscode/
