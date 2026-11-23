@@ -33,7 +33,10 @@ def nettoyer_stations(df_stations: pd.DataFrame) -> pd.DataFrame:
 def nettoyer_ruptures(df_ruptures: pd.DataFrame, df_stations_propres: pd.DataFrame) -> pd.DataFrame:
     """Garde les ruptures des carburants principaux, commencées sur la période,
     dans les stations actives, et ajoute leur durée en heures."""
-    dans_periode = df_ruptures["debut"].between(DATE_DEBUT, DATE_FIN)
+    # Garde aussi les ruptures commencées avant la période mais encore en cours au 1er septembre
+    dans_periode = (df_ruptures["debut"] <= DATE_FIN) & (
+        df_ruptures["fin"].isna() | (df_ruptures["fin"] >= DATE_DEBUT)
+    )
     carburant_principal = df_ruptures["carburant"].isin(CARBURANTS_PRINCIPAUX)
     df = df_ruptures.loc[dans_periode & carburant_principal, ["id_station", "carburant", "debut", "fin"]]
 
