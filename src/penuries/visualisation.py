@@ -64,3 +64,31 @@ def courbe_epidemique(
     ax_inc.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
     fig.tight_layout()
     return fig
+
+
+def carte_chaleur_departements(df_prev_dep: pd.DataFrame, dates_decollage: pd.Series):
+    """G2 : part de stations en rupture, une ligne par département, triées par date de décollage."""
+    tableau = df_prev_dep.pivot(index="departement", columns="jour", values="pct_en_rupture")
+    ordre = dates_decollage.sort_values(na_position="last").index
+    tableau = tableau.loc[ordre]
+
+    fig, ax = plt.subplots(figsize=(12, 13))
+    image = ax.imshow(tableau.to_numpy(), aspect="auto", cmap="Blues", vmin=0, vmax=80,
+                      interpolation="nearest")
+    barre = fig.colorbar(image, ax=ax, shrink=0.5, pad=0.01)
+    barre.set_label("Stations en rupture d'au moins un carburant (%)")
+
+    ax.set_yticks(range(len(tableau)))
+    ax.set_yticklabels(tableau.index, fontsize=6)
+    ax.set_ylabel("Département (trié par date de décollage, du plus précoce au plus tardif)")
+
+    jours = tableau.columns
+    lundis = [i for i, jour in enumerate(jours) if jour.dayofweek == 0]
+    ax.set_xticks(lundis)
+    ax.set_xticklabels([jours[i].strftime("%d/%m") for i in lundis])
+    ax.set_xlabel("Date (relevé quotidien à 13 h)")
+    ax.set_title("Quand chaque département bascule-t-il dans la pénurie ?", loc="left",
+                 fontsize=13, fontweight="bold")
+    ax.spines[:].set_visible(False)
+    fig.tight_layout()
+    return fig
