@@ -95,3 +95,11 @@ def ajouter_voisines_en_rupture(panel: pd.DataFrame, paires: pd.DataFrame) -> pd
     colonnes = ["nb_voisines_en_rupture", "nb_voisines"]
     panel[colonnes] = panel[colonnes].fillna(0).astype(int)
     return panel
+
+
+def date_decollage(df_prev_dep: pd.DataFrame, seuil: float = 20, depuis: str = "2022-09-26") -> pd.Series:
+    """Premier jour (à partir de `depuis`) où la part de stations en rupture d'un département
+    atteint `seuil` %. NaT si le département n'atteint jamais ce seuil."""
+    au_dessus = df_prev_dep[(df_prev_dep["jour"] >= depuis) & (df_prev_dep["pct_en_rupture"] >= seuil)]
+    dates = au_dessus.groupby("departement")["jour"].min()
+    return dates.reindex(df_prev_dep["departement"].unique()).rename("date_decollage")
