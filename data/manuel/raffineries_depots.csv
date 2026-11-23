@@ -1,5 +1,5 @@
 site,type,commune,departement,debut_greve,fin_greve,latitude,longitude,source
-Port-Jerome,raffinerie,Port-Jerome-sur-Seine,76,2022-09-20,,,,https://www.spglobal.com/energy/en/news-research/latest-news/chemicals/100322-staff-at-frances-gravenchon-fos-gonfreville-refineries-remain-on-strike-operations-halted
+Port-Jerome,raffinerie,Port-Jerome-sur-Seine,76,2022-09-20,,49.473265,0.551294,https://www.spglobal.com/energy/en/news-research/latest-news/chemicals/100322-staff-at-frances-gravenchon-fos-gonfreville-refineries-remain-on-strike-operations-halted
 Fos-sur-Mer,raffinerie,Fos-sur-Mer,13,2022-09-21,2022-10-13,43.445861,4.925994,https://www.lefigaro.fr/conjoncture/en-direct-crise-des-carburants-pas-d-accord-chez-totalenergies-la-greve-continue-20221013
 Gonfreville,raffinerie,Gonfreville-l-Orcher,76,2022-09-27,,49.488016,0.240840,https://www.spglobal.com/energy/en/news-research/latest-news/chemicals/100322-staff-at-frances-gravenchon-fos-gonfreville-refineries-remain-on-strike-operations-halted
 Donges,raffinerie,Donges,44,2022-10-12,2022-10-19,47.311659,-2.065453,https://www.ladepeche.fr/2022/10/19/penurie-dessence-fin-de-la-greve-votee-a-la-raffinerie-de-donges-la-premiere-chez-totalenergies-10748818.php
