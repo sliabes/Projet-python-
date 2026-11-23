@@ -83,5 +83,62 @@ def preparer_geographie():
     print("Fichiers géographiques prêts.")
 
 
+def verifier_departements_stations(df_stations):
+    """Compare les départements déclarés aux positions GPS des stations."""
+    import geopandas as gpd
+
+    url = (
+        "https://raw.githubusercontent.com/gregoiredavid/"
+        "france-geojson/master/departements.geojson"
+    )
+
+    # Récupération des contours détaillés
+    with urllib.request.urlopen(url, timeout=60) as reponse:
+        geo = json.load(reponse)
+
+    departements = gpd.GeoDataFrame.from_features(
+        geo["features"], crs="EPSG:4326"
+    )[["code", "geometry"]]
+
+    # Conversion des stations en points géographiques
+    stations_geo = gpd.GeoDataFrame(
+        df_stations.copy(),
+        geometry=gpd.points_from_xy(
+            df_stations["longitude"],
+            df_stations["latitude"]
+        ),
+        crs="EPSG:4326"
+    )
+
+    # Attribution géographique indépendante
+    resultat = gpd.sjoin(
+        stations_geo,
+        departements,
+        how="left",
+        predicate="within"
+    )
+
+    if len(resultat) != len(df_stations):
+        raise ValueError("La jointure a modifié le nombre de stations.")
+
+    hors_contours = resultat["code"].isna()
+    departement_different = (
+        ~hors_contours
+        & (resultat["departement"] != resultat["code"])
+    )
+
+    anomalies = resultat.loc[
+        hors_contours | departement_different
+    ].copy()
+
+    print("Stations analysées :", len(df_stations))
+    print("Stations hors contours :", hors_contours.sum())
+    print("Départements différents :", departement_different.sum())
+    print("Total des anomalies :", len(anomalies))
+
+    return anomalies
+
+
+
 if __name__ == "__main__":
     preparer_geographie()
