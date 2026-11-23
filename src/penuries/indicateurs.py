@@ -48,3 +48,50 @@ def prevalence(panel: pd.DataFrame, par: str | None = None) -> pd.DataFrame:
         .assign(pct_en_rupture=lambda d: 100 * d["pct_en_rupture"])
         .reset_index()
     )
+    
+
+import numpy as np
+from sklearn.neighbors import BallTree
+
+RAYON_TERRE_KM = 6371.0
+
+
+def paires_voisines(df_stations: pd.DataFrame, rayon_km: float = 5) -> pd.DataFrame:
+    """Une ligne par couple (station, voisine) situées à moins de rayon_km l'une de l'autre.
+
+    Les distances sont calculées « à vol d'oiseau » sur la sphère terrestre (formule de haversine),
+    à l'aide d'un BallTree qui évite de comparer les 9 500 stations deux à deux.
+    """
+    coords = np.radians(df_stations[["latitude", "longitude"]].to_numpy())
+    arbre = BallTree(coords, metric="haversine")
+    indices, distances = arbre.query_radius(coords, r=rayon_km / RAYON_TERRE_KM, return_distance=True)
+
+    ids = df_stations["id_station"].to_numpy()
+    nb_par_station = [len(v) for v in indices]
+    paires = pd.DataFrame({
+        "id_station": np.repeat(ids, nb_par_station),
+        "id_voisine": ids[np.concatenate(indices)],
+        "distance_km": np.concatenate(distances) * RAYON_TERRE_KM,
+    })
+    return paires[paires["id_station"] != paires["id_voisine"]].reset_index(drop=True)
+
+
+def ajouter_voisines_en_rupture(panel: pd.DataFrame, paires: pd.DataFrame) -> pd.DataFrame:
+    """Ajoute au panel, pour chaque station et chaque jour :
+    - nb_voisines : nombre de stations à moins de 5 km ;
+    - nb_voisines_en_rupture : nombre de ces voisines en rupture ce jour-là."""
+    en_rupture = panel.loc[panel["en_rupture"], ["id_station", "jour"]].rename(columns={"id_station": "id_voisine"})
+    compte = (
+        paires.merge(en_rupture, on="id_voisine")
+        .groupby(["id_station", "jour"])
+        .size()
+        .rename("nb_voisines_en_rupture")
+        .reset_index()
+    )
+    nb_voisines = paires.groupby("id_station").size().rename("nb_voisines").reset_index()
+
+    panel = panel.merge(compte, on=["id_station", "jour"], how="left")
+    panel = panel.merge(nb_voisines, on="id_station", how="left")
+    colonnes = ["nb_voisines_en_rupture", "nb_voisines"]
+    panel[colonnes] = panel[colonnes].fillna(0).astype(int)
+    return panel
