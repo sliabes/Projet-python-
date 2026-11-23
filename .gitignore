@@ -221,7 +221,8 @@ __marimo__/
 
 
 # Données : jamais dans Git (stockées sur S3 SSP Cloud)
-data/
+data/*
+!data/manuel/
 *.parquet
 *.zip
 *.xml
