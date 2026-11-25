@@ -1,0 +1,8 @@
+date,pourcentage,indicateur,source,pct_en_rupture,ecart_pp
+2022-10-05,12.0,difficulte_au_moins_un_carburant,https://www.info.gouv.fr/conseil-des-ministres/compte-rendu-du-conseil-des-ministres-du-05-10-2022,17.15988706472864,5.15988706472864
+2022-10-09,29.7,difficulte_au_moins_un_carburant,https://www.boursorama.com/bourse/actualites/pres-de-30-des-stations-service-en-difficulte-d-approvisionnement-ministere-d5eda5e1b040e7a0a4fff3e842e809ad,37.36275227439088,7.662752274390879
+2022-10-10,29.4,difficulte_au_moins_un_carburant,https://www.tf1info.fr/politique/en-direct-crise-energie-les-dernieres-infos-sur-greve-carburants-penurie-les-mesures-pour-tarif-electricite-gaz-2234513.html,41.42005646763568,12.020056467635683
+2022-10-12,30.8,difficulte_au_moins_un_carburant,https://www.lemonde.fr/economie/live/2022/10/12/penurie-de-carburant-en-direct-berger-cfdt-denonce-les-requisitions-martinez-cgt-veut-que-le-mouvement-s-amplifie_6145447_3234.html,41.86970615915508,11.069706159155078
+2022-10-15,27.3,difficulte_au_moins_un_carburant,https://www.leparisien.fr/economie/penurie-de-carburant-273-des-stations-service-en-difficulte-la-situation-sameliore-legerement-15-10-2022-LVFYWMRWN5B27NKU3WEPZWSMZU.php,46.20934853079577,18.90934853079577
+2022-10-19,20.3,difficulte_au_moins_un_carburant,https://www.lefigaro.fr/conjoncture/penurie-de-carburants-la-situation-s-ameliore-20-3-des-stations-etaient-en-difficulte-ce-mercredi-a-13h-20221019,41.13771828923978,20.837718289239778
+2022-10-20,16.9,difficulte_au_moins_un_carburant,https://www.leparisien.fr/economie/penurie-de-carburants-la-situation-sameliore-avec-169-des-stations-service-en-difficulte-selon-le-gouvernement-20-10-2022-PJKDUBX3OBGCZCYOZZ6TX55HPA.php,36.53665167834362,19.63665167834362
