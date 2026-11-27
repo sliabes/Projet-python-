@@ -19,7 +19,7 @@ def courbe_epidemique(
     df_prev: pd.DataFrame,
     niveau_normal: float | None = None,
     dates_cles: dict[str, str] | None = None,
-    titre: str = "La crise des carburants d'octobre 2022 vue comme une épidémie",
+    titre: str = "G1 - La crise des carburants d'octobre 2022 vue comme une épidémie",
 ):
     """G1 : prévalence (en haut) et nouvelles ruptures (en bas), sur le même axe des dates."""
     fig, (ax_prev, ax_inc) = plt.subplots(
@@ -34,7 +34,7 @@ def courbe_epidemique(
                      f"niveau normal de septembre ({niveau_normal:.1f} %)", color=COULEUR_REPERE, fontsize=9)
     ax_prev.set_ylim(0, df_prev["pct_en_rupture"].max() * 1.15)
     ax_prev.set_ylabel("Stations en rupture\nd'au moins un carburant (%)")
-    ax_prev.set_title(titre, loc="left", fontsize=13, fontweight="bold")
+    ax_prev.set_title(titre, loc="center", fontsize=15, fontweight="bold")
 
     # Panneau du bas : nouvelles ruptures par jour
     ax_inc.bar(df_prev["jour"], df_prev["nouvelles_ruptures"], color=COULEUR_PRINCIPALE, alpha=0.75, width=0.8)
@@ -87,8 +87,9 @@ def carte_chaleur_departements(df_prev_dep: pd.DataFrame, dates_decollage: pd.Se
     ax.set_xticks(lundis)
     ax.set_xticklabels([jours[i].strftime("%d/%m") for i in lundis])
     ax.set_xlabel("Date (relevé quotidien à 13 h)")
-    ax.set_title("Quand chaque département bascule-t-il dans la pénurie ?", loc="left",
-                 fontsize=13, fontweight="bold")
+    ax.set_title(" G2 - Quand chaque département bascule-t-il dans la pénurie ?", loc="center",
+                 fontsize=15, fontweight="bold")
     ax.spines[:].set_visible(False)
     fig.tight_layout()
+    
     return fig
