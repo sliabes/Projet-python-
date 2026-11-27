@@ -148,8 +148,8 @@ def graphique_comparaison(courbes: dict, jours_avant: int = 45, jours_apres: int
     ax.set_ylim(0, 1.1)
     ax.set_xlabel("Jours avant (–) et après (+) le pic")
     ax.set_ylabel("Nouveaux cas, en proportion du pic\n(moyenne mobile sur 7 jours)")
-    ax.set_title("La crise des carburants a-t-elle la forme d'une épidémie ?", loc="left",
-                 fontsize=13, fontweight="bold")
+    ax.set_title("G7 - La crise des carburants a-t-elle la forme d'une épidémie ?", loc="center",
+                 fontsize=15, fontweight="bold")
     ax.legend(frameon=False, loc="upper right")
     ax.spines[["top", "right"]].set_visible(False)
     ax.grid(axis="y", color="#e5e7eb", linewidth=0.8)

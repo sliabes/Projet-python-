@@ -129,8 +129,8 @@ def graphique_taux_attaque(taux_crise: pd.DataFrame, taux_normal: pd.DataFrame):
         ax.set_title(titre, loc="left", fontsize=11, fontweight="bold")
         _style_axe(ax)
     axes[0].legend(frameon=False, loc="upper left", fontsize=9)
-    fig.suptitle("Avoir une voisine en rupture augmente-t-il le risque de tomber en rupture ?",
-                 x=0.01, ha="left", fontsize=13, fontweight="bold")
+    fig.suptitle("G5 - Avoir une voisine en rupture augmente-t-il le risque de tomber en rupture ?",
+                 x=0.01, ha="left", fontsize=15, fontweight="bold")
     fig.tight_layout()
     return fig
 
@@ -149,8 +149,8 @@ def graphique_dose_reponse(dose_crise: pd.DataFrame, dose_normal: pd.DataFrame):
     ax.axhline(0, color=COULEUR_TEXTE, linewidth=0.8)
     ax.set_xlabel("Part des voisines (à moins de 5 km) en rupture la veille")
     ax.set_ylabel("Écart au taux de rupture du département\nle même jour (points de %)")
-    ax.set_title("Plus les voisines sont en rupture, plus le risque augmente-t-il ?",
-                 loc="left", fontsize=13, fontweight="bold")
+    ax.set_title("G6 - Plus les voisines sont en rupture, plus le risque augmente-t-il ?",
+                 loc="center", fontsize=15, fontweight="bold")
     ax.legend(frameon=False)
     _style_axe(ax)
     fig.tight_layout()
